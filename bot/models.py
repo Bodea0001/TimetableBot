@@ -39,3 +39,26 @@ class Timetable:
     education_level: Education_level
     course: int
     creation_date: str
+
+
+class TaskTags(str, Enum):
+    one = "один"
+    all = "все"
+
+
+class TaskStatuses(str, Enum):
+    in_progress = "В процессе"
+    complited = "Завершено"
+
+
+@dataclass
+class Task:
+    id: int
+    id_timetable: int
+    tag: TaskTags
+    deadline: str
+    subject: str
+    description: str
+    status: TaskStatuses
+    creation_date: str
+    

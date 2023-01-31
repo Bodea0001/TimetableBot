@@ -15,6 +15,18 @@ def get_refresh_token(r: redis.Redis, user_id: int) -> str | None:
         return refresh_token.decode('utf-8')
 
 
+def get_timetable_id(r: redis.Redis, user_id: int) -> int | None:
+    timetable_id = r.get(f"{user_id}:timetable:id")
+    if timetable_id:
+        return int(timetable_id.decode('utf-8'))
+
+
+def get_timetable_name(r: redis.Redis, user_id: int) -> str | None:
+    timetable_name = r.get(f"{user_id}:timetable:name")
+    if timetable_name:
+        return timetable_name.decode('utf-8')
+
+
 def save_tokens(
     r: redis.Redis,
     user_id: int,

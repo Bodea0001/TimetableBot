@@ -8,3 +8,11 @@ class UnknownTokenType(Exception):
 
 class UnknownUser(Exception):
     pass
+
+
+class EmptyResponse(Exception):
+    pass
+
+
+class NotOkResponse(Exception):
+    pass

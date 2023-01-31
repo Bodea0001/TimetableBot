@@ -1,7 +1,7 @@
 import json
 from datetime import datetime
 
-from models import Timetable
+from models import Timetable, Task
 from exceptions import UnknownTokenType
 from models import Token, TokenType, AccessToken, RefreshToken
 
@@ -34,9 +34,9 @@ def _parse_refresh_token(data: dict) -> RefreshToken:
     return RefreshToken(token.token, token.expire)
 
 
-def parse_timetables(timetables: str) -> list[Timetable]:
-    timetables_list: list[dict] = json.loads(timetables)
-    return [_parse_timetable(timetable) for timetable in timetables_list]
+def parse_timetables(text: str) -> list[Timetable]:
+    timetables: list[dict] = json.loads(text)
+    return [_parse_timetable(timetable) for timetable in timetables]
     
 
 def _parse_timetable(timetable: dict) -> Timetable:
@@ -52,3 +52,19 @@ def _parse_timetable(timetable: dict) -> Timetable:
     )
 
 
+def parse_tasks(text: str) -> list[Task]:
+    tasks = json.loads(text)
+    return [_parse_task(task) for task in tasks]
+
+
+def _parse_task(task: dict) -> Task:
+    return Task(
+        id=task['id'],
+        id_timetable=task['id_timetable'],
+        tag=task['tag'],
+        deadline=task['deadline'],
+        subject=task['subject'],
+        description=task['description'],
+        status=task['status'],
+        creation_date=task['creation_date']
+    )
