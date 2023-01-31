@@ -1,5 +1,8 @@
 from enum import Enum
+from datetime import datetime
 from dataclasses import dataclass
+
+from config import DATE_FORMAT
 
 
 class TokenType(str, Enum):
@@ -40,6 +43,13 @@ class Timetable:
     course: int
     creation_date: str
 
+    def __post_init__(self):
+        value = getattr(self, "creation_date").split(".")
+        if value is None:
+            return
+        value = datetime.strptime(value[0], "%Y-%m-%dT%H:%M:%S").strftime(DATE_FORMAT)
+        setattr(self, "creation_date", value)
+
 
 class TaskTags(str, Enum):
     one = "один"
@@ -62,3 +72,11 @@ class Task:
     status: TaskStatuses
     creation_date: str
     
+    def __post_init__(self):
+        """Set up deadline and creation_date to needed string format"""
+        for field in ("deadline", "creation_date"):
+            value = getattr(self, field).split(".")
+            if value is None:
+                continue
+            value = datetime.strptime(value[0], "%Y-%m-%dT%H:%M:%S").strftime(DATE_FORMAT)
+            setattr(self, field, value)
