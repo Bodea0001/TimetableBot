@@ -75,21 +75,21 @@ def handler_decorator(func):
             await context.bot.send_message(
                 chat_id=effective_chat.id,
                 text=CONNECTION_FAILED_MESSAGE,
-                parse_mode=constants.ParseMode.MARKDOWN_V2
+                parse_mode=constants.ParseMode.HTML
             )
         except UnknownUser:
             logger.info(f'User {user.id}: no authenticated')
             await context.bot.send_message(
                 chat_id=effective_chat.id,
                 text=NO_AUTH_MESSAGE.format(tg_user_id=user.id),
-                parse_mode=constants.ParseMode.MARKDOWN_V2,
+                parse_mode=constants.ParseMode.HTML,
             )  
         except FailedTokenRefresh as e:
             logger.warning(f'User {user.id}: {e}')
             await context.bot.send_message(
                 chat_id=effective_chat.id,
                 text=FAILED_TO_UPDATE_TOKENS_MESSAGE.format(tg_user_id=user.id),
-                parse_mode=constants.ParseMode.MARKDOWN_V2,
+                parse_mode=constants.ParseMode.HTML,
             )
         except EmptyResponse as e:
             logger.info(f'User {user.id}: {e}')
@@ -112,11 +112,11 @@ def handler_decorator(func):
 @handler_decorator
 async def choose_timetable(
     update: Update,
-    context: ContextTypes.DEFAULT_TYPE,
+    _: ContextTypes.DEFAULT_TYPE,
 ):
     user: User = update.effective_user  # type: ignore
 
-    access_token, _ = await get_tokens(r, user)
+    access_token, __ = await get_tokens(r, user)
     response = await send_request_to_get_timetables(access_token)
 
     timetables = parse_timetables(response.text)
@@ -128,7 +128,7 @@ async def choose_timetable(
     )
 
 
-async def timetable_button(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def timetable_button(update: Update, _: ContextTypes.DEFAULT_TYPE):
     user = update.effective_user
     if not user:
         logger.warning("effective_chat is None in /start")

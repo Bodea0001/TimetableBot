@@ -1,21 +1,18 @@
-AUTH_URL = "https://rksok\-protocol\.ru/login/telegram/bot/{tg_user_id}"  # type: ignore
+AUTH_URL = "https://rksok-protocol.ru/login/telegram/bot/{tg_user_id}"
 
 
 NO_AUTH_MESSAGE = """Чтобы пользоваться ботом, сначала необходимо войти \
-[тут]({auth_url}) в свой аккаунт\!""".format(  # type: ignore
+<a href="{auth_url}">тут</a> в свой аккаунт!""".format(  # type: ignore
     auth_url=AUTH_URL
 )
 
-FAILED_TO_UPDATE_TOKENS_MESSAGE = """Произошла ошибка\. Можете, пожалуйста, \
-еще раз войти в свой аккаунт\. Вот [ссылка]({auth_url})""".format(  # type: ignore
+FAILED_TO_UPDATE_TOKENS_MESSAGE = """Произошла ошибка. Можете, пожалуйста, \
+еще раз войти в свой аккаунт. Вот <a href="{auth_url}">ссылка</a>""".format(
     auth_url=AUTH_URL
 )
 
-LOGIN_MESSAGE = """Чтобы войти в свой аккаунт, перейдите \
-[сюда]({auth_url})""".format(auth_url=AUTH_URL)
-
-CONNECTION_FAILED_MESSAGE = """В данный момент сайт не доступен\. Повторите \
-попытку позже\."""  # type: ignore
+CONNECTION_FAILED_MESSAGE = """В данный момент сайт не доступен. Повторите \
+попытку позже."""
 
 EMPTY_MESSAGE = """Пока у вас ничего нет\."""  #type: ignore
 
@@ -33,8 +30,7 @@ MESSAGE_AFTER_SELECTING_TIMETABLE = """Вы выбрали расписание 
 
 Если хотиет сменить расписание:
 
-/choose - выбрать или сменить расписание (если уже авторизованы).
-"""
+/choose - выбрать или сменить расписание (если уже авторизованы)."""
 
 NO_SAVED_TIMETABLE_MESSAGE = """У вас нет сохраненного расписания. Возможно \
 вы его не выбрали.
